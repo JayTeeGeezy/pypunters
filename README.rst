@@ -146,9 +146,9 @@ Scraping Horses
 
 To scrape a horse's profile from a specified URL, call the scrape_horses method on the scraper instance as follows:
 
-	>>> horse = scraper.scrape_horses(url)
+	>>> horse = scraper.scrape_horse(url)
 
-The scrape_horses method will return a dictionary containing the following keys representing the horse's details:
+The scrape_horse method will return a dictionary containing the following keys representing the horse's details:
 
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 | Key                  | Type        | Description                                                                         |
@@ -171,6 +171,24 @@ The scrape_horses method will return a dictionary containing the following keys 
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 
 
+Scraping Jockeys
+~~~~~~~~~~~~~~~
+
+To scrape a jockey's profile from a specified URL, call the scrape_jockeys method on the scraper instance as follows:
+
+	>>> jockey = scraper.scrape_jockey(url)
+
+The scrape_jockey method will return a dictionary containing the following keys representing the jockey's details:
+
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| Key                  | Type        | Description                                                                         |
++======================+=============+=====================================================================================+
+| name                 | str         | The jockey's name                                                                   |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| url                  | str         | The path to the jockey's profile page at www.punters.com.au                         |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+
+
 Testing
 -------
 
@@ -188,3 +206,4 @@ The tests for individual components of pypunters can be run by executing any of 
 	nosetests pypunters.test.races
 	nosetests pypunters.test.runners
 	nosetests pypunters.test.horses
+	nosetests pypunters.test.jockeys
