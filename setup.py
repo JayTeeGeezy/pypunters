@@ -12,5 +12,9 @@ setup(
 	packages=[
 		'pypunters'
 	],
+	install_requires=[
+	],
+	dependency_links=[
+	],
 	zip_safe=False
 	)
