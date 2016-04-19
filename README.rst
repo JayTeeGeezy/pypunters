@@ -71,6 +71,34 @@ The scrape_meets method will return a list of dictionaries, with each dictionary
 +-------+----------+---------------------------------------------------------+
 
 
+Scraping Races
+~~~~~~~~~~~~~~
+
+To scrape a list of races occurring at a specified meet, call the scrape_races method on the scraper instance as follows:
+
+	>>> races = scraper.scrape_races(meet)
+
+meet must be a dictionary containing a 'url' key with a corresponding value representing the URL or path to the meet details page at www.punters.com.au.
+
+The scrape_races method will return a list of dictionaries, with each dictionary providing the following keys to represent a single race's details:
+
++-----------------+----------+----------------------------------------------------------------+
+| Key             | Type     | Description                                                    |
++=================+==========+================================================================+
+| distance        | int      | The race's distance in metres                                  |
++-----------------+----------+----------------------------------------------------------------+
+| number          | int      | The race's number on the meet program                          |
++-----------------+----------+----------------------------------------------------------------+
+| prize_money     | float    | The total prize money on offer for the race                    |
++-----------------+----------+----------------------------------------------------------------+
+| start_time      | datetime | The advertised start time for the race                         |
++-----------------+----------+----------------------------------------------------------------+
+| track_condition | str      | The official track condition rating as at the time of the race |
++-----------------+----------+----------------------------------------------------------------+
+| url             | str      | The path to the race details page at www.punters.com.au        |
++-----------------+----------+----------------------------------------------------------------+
+
+
 Testing
 -------
 
