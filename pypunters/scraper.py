@@ -22,6 +22,8 @@ class Scraper:
 		self.http_client = http_client
 		self.html_parser = html_parser
 
+		self.scrape_horse = self.scrape_jockey = self.scrape_profile
+
 	def get_html(self, url, url_root='https://www.punters.com.au/', url_separator='/'):
 		"""Get the root HTML element from the specified URL"""
 
@@ -173,8 +175,8 @@ class Scraper:
 
 		return runners
 
-	def scrape_horse(self, url):
-		"""Scrape a single horse's profile from the specified URL"""
+	def scrape_profile(self, url):
+		"""Scrape a single profile's profile from the specified URL"""
 
 		def get_name(element):
 			name = get_child_text(element, 'h1')
@@ -182,20 +184,15 @@ class Scraper:
 				inner_text = get_child_text(element, 'h1 span')
 				if inner_text is not None:
 					name = name.replace(inner_text, '').strip()
+				name = re.sub('\(a\d*\.?\d*\)', '', name).strip()
 			return name
 
 		html = self.get_html(url)
 		if html is not None:
 			
-			horse = {
-				'url':		url,
-				'name':		get_name(html),
-				'colour':	None,
-				'sex':		None,
-				'sire':		None,
-				'dam':		None,
-				'country':	None,
-				'foaled':	None
+			profile = {
+				'url':	url,
+				'name':	get_name(html)
 			}
 
 			for row in html.cssselect('div.moduleItem table tr'):
@@ -206,24 +203,24 @@ class Scraper:
 					if label == 'profile':
 						profile_groups = get_child_match_groups(row, 'td', 'year old (.*) (.*)')
 						if profile_groups is not None and len(profile_groups) > 0:
-							horse['sex'] = profile_groups[-1]
+							profile['sex'] = profile_groups[-1]
 							if len(profile_groups) > 1:
-								horse['colour'] = profile_groups[0]
+								profile['colour'] = profile_groups[0]
 
 					elif label == 'pedigree':
 						pedigree_groups = get_child_match_groups(row, 'td', '(.*) x (.*)')
 						if pedigree_groups is not None and len(pedigree_groups) > 0:
-							horse['dam'] = pedigree_groups[-1]
+							profile['dam'] = pedigree_groups[-1]
 							if len(pedigree_groups) > 1:
-								horse['sire'] = pedigree_groups[0]
+								profile['sire'] = pedigree_groups[0]
 
 					elif label == 'country':
-						horse['country'] = get_child_text(row, 'td')
+						profile['country'] = get_child_text(row, 'td')
 
 					elif label == 'foaled':
 						try:
-							horse['foaled'] = datetime.strptime(get_child_text(row, 'td'), '%d/%m/%Y')
+							profile['foaled'] = datetime.strptime(get_child_text(row, 'td'), '%d/%m/%Y')
 						except ValueError:
 							pass
 
-			return horse
+			return profile
