@@ -29,6 +29,12 @@ setup(
 	packages=[
 		'pypunters'
 	],
+	scripts=[
+	],
+	entry_points={
+		'console_scripts': [
+		]
+	},
 	install_requires=[
 	],
 	test_suite='nose.collector',
