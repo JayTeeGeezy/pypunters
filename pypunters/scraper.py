@@ -35,6 +35,11 @@ class Scraper:
 
 		return self.html_parser(response.text)
 
+	def fix_profile_url(self, url):
+		"""Remove apprentice indicators from profile URLs"""
+
+		return re.sub('\-\%28a\d*\.?\d*\%29', '', url)
+
 	def scrape_meets(self, date):
 		"""Scrape a list of meets occurring on the specified date"""
 
@@ -149,7 +154,7 @@ class Scraper:
 						link_href = link.get('href')
 						for key in ('horse', 'jockey', 'trainer'):
 							if link_href.startswith('/{key}s/'.format(key=key)):
-								runner[key + '_url'] = link_href
+								runner[key + '_url'] = self.fix_profile_url(link_href)
 								break
 
 					apprentice_text = get_child_text(row, 'span.timeSince')
@@ -167,3 +172,58 @@ class Scraper:
 					runners.append(runner)
 
 		return runners
+
+	def scrape_horse(self, url):
+		"""Scrape a single horse's profile from the specified URL"""
+
+		def get_name(element):
+			name = get_child_text(element, 'h1')
+			if name is not None:
+				inner_text = get_child_text(element, 'h1 span')
+				if inner_text is not None:
+					name = name.replace(inner_text, '').strip()
+			return name
+
+		html = self.get_html(url)
+		if html is not None:
+			
+			horse = {
+				'url':		url,
+				'name':		get_name(html),
+				'colour':	None,
+				'sex':		None,
+				'sire':		None,
+				'dam':		None,
+				'country':	None,
+				'foaled':	None
+			}
+
+			for row in html.cssselect('div.moduleItem table tr'):
+				label = get_child_text(row, 'th')
+				if label is not None:
+					label = label.replace(':', '').strip().lower()
+
+					if label == 'profile':
+						profile_groups = get_child_match_groups(row, 'td', 'year old (.*) (.*)')
+						if profile_groups is not None and len(profile_groups) > 0:
+							horse['sex'] = profile_groups[-1]
+							if len(profile_groups) > 1:
+								horse['colour'] = profile_groups[0]
+
+					elif label == 'pedigree':
+						pedigree_groups = get_child_match_groups(row, 'td', '(.*) x (.*)')
+						if pedigree_groups is not None and len(pedigree_groups) > 0:
+							horse['dam'] = pedigree_groups[-1]
+							if len(pedigree_groups) > 1:
+								horse['sire'] = pedigree_groups[0]
+
+					elif label == 'country':
+						horse['country'] = get_child_text(row, 'td')
+
+					elif label == 'foaled':
+						try:
+							horse['foaled'] = datetime.strptime(get_child_text(row, 'td'), '%d/%m/%Y')
+						except ValueError:
+							pass
+
+			return horse
