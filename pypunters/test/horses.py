@@ -5,12 +5,13 @@ from .common import ScraperTest
 
 class HorsesTest(ScraperTest):
 
-	def test_expected_values(self):
-		"""The scrape_horse method should return a dictionary containing all expected values"""
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
 
-		url = '/horses/Tycoon-Tony_395471/'
-		expected_values = {
-			'url':		url,
+		cls.url = '/horses/Tycoon-Tony_395471/'
+		cls.expected_values = {
+			'url':		cls.url,
 			'name':		'Tycoon Tony',
 			'colour':	'bay',
 			'sex':		'gelding',
@@ -20,7 +21,18 @@ class HorsesTest(ScraperTest):
 			'foaled':	datetime(2011, 10, 1)
 		}
 
-		scraped_values = self.scraper.scrape_horse(url)
+		cls.scraped_values = cls.scraper.scrape_horse(cls.url)
 
-		self.assertIsInstance(scraped_values, dict)
-		self.check_expected_values(expected_values, scraped_values)
+	def setUp(self):
+
+		self.assertIsInstance(self.scraped_values, dict)
+
+	def test_expected_values(self):
+		"""The scrape_horse method should return a dictionary containing all expected values"""
+
+		self.check_expected_values(self.expected_values, self.scraped_values)
+
+	def test_unexpected_values(self):
+		"""The scrape_horse method should return a dictionary that does not contain any unexpected values"""
+
+		self.check_unexpected_values(self.expected_values, self.scraped_values)
