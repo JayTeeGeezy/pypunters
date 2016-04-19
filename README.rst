@@ -110,7 +110,7 @@ The scrape_races method will return a list of dictionaries, with each dictionary
 Scraping Runners
 ~~~~~~~~~~~~~~~~
 
-The scrape a list of runners competing in a specified race, call the scrape_runners method on the scraper instance as follows:
+The scrape a list of active (non-scratched) runners competing in a specified race, call the scrape_runners method on the scraper instance as follows:
 
 	>>> runners = scraper.scrape_runners(race)
 

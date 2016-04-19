@@ -5,10 +5,11 @@ from .common import ScraperTest
 
 class RunnersTest(ScraperTest):
 
-	def test_expected_runners(self):
-		"""The scrape_runners method should return a list containing all expected runners"""
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
 
-		race = {
+		cls.race = {
 			'number':			5,
 			'distance':			1100,
 			'prize_money':		20000.00,
@@ -25,7 +26,7 @@ class RunnersTest(ScraperTest):
 			'track_straight':	320,
 			'track_rail':		'True Entire Circuit'
 		}
-		expected_runners = [
+		cls.expected_runners = [
 			{
 				'number':				1,
 				'horse_url':			'/horses/Tycoon-Tony_395471/',
@@ -116,7 +117,18 @@ class RunnersTest(ScraperTest):
 			}
 		]
 
-		scraped_runners = self.scraper.scrape_runners(race)
+		cls.scraped_runners = cls.scraper.scrape_runners(cls.race)
 
-		self.assertIsInstance(scraped_runners, list)
-		self.check_expected_items(expected_runners, scraped_runners)
+	def setUp(self):
+
+		self.assertIsInstance(self.scraped_runners, list)
+
+	def test_expected_runners(self):
+		"""The scrape_runners method should return a list containing all expected runners"""
+
+		self.check_expected_items(self.expected_runners, self.scraped_runners)
+
+	def test_unexpected_runners(self):
+		"""The scrape_runners method should return a list that does not contain any unexpected runners"""
+
+		self.check_unexpected_items(self.expected_runners, self.scraped_runners)

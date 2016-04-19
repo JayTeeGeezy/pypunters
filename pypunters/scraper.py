@@ -130,38 +130,40 @@ class Scraper:
 		if html is not None:
 			
 			for row in html.cssselect('table.form-overview tbody tr'):
+				row_class = row.get('class')
+				if row_class is None or 'scratched' not in row_class:
 
-				runner = {
-					'number':				parse_attribute(row, None, 'data-runner-number', int),
-					'horse_url':			None,
-					'horse_has_blinkers':	get_child(row, 'div.has-blinkers') is not None,
-					'jockey_url':			None,
-					'jockey_is_apprentice':	False,
-					'jockey_claiming':		0.0,
-					'trainer_url':			None,
-					'weight':				parse_attribute(row, None, 'data-weight', float),
-					'barrier':				parse_attribute(row, None, 'data-barrier', float)
-					}
+					runner = {
+						'number':				parse_attribute(row, None, 'data-runner-number', int),
+						'horse_url':			None,
+						'horse_has_blinkers':	get_child(row, 'div.has-blinkers') is not None,
+						'jockey_url':			None,
+						'jockey_is_apprentice':	False,
+						'jockey_claiming':		0.0,
+						'trainer_url':			None,
+						'weight':				parse_attribute(row, None, 'data-weight', float),
+						'barrier':				parse_attribute(row, None, 'data-barrier', float)
+						}
 
-				for link in row.cssselect('a'):
-					link_href = link.get('href')
-					for key in ('horse', 'jockey', 'trainer'):
-						if link_href.startswith('/{key}s/'.format(key=key)):
-							runner[key + '_url'] = link_href
-							break
+					for link in row.cssselect('a'):
+						link_href = link.get('href')
+						for key in ('horse', 'jockey', 'trainer'):
+							if link_href.startswith('/{key}s/'.format(key=key)):
+								runner[key + '_url'] = link_href
+								break
 
-				apprentice_text = get_child_text(row, 'span.timeSince')
-				if apprentice_text is not None:
-					runner['jockey_is_apprentice'] = True
-					apprentice_match = re.search('\(a(\d+\.?\d*)\)', apprentice_text)
-					if apprentice_match is not None:
-						apprentice_groups = apprentice_match.groups()
-						if apprentice_groups is not None and len(apprentice_groups) > 0:
-							try:
-								runner['jockey_claiming'] = float(apprentice_groups[0])
-							except ValueError:
-								pass
+					apprentice_text = get_child_text(row, 'span.timeSince')
+					if apprentice_text is not None:
+						runner['jockey_is_apprentice'] = True
+						apprentice_match = re.search('\(a(\d+\.?\d*)\)', apprentice_text)
+						if apprentice_match is not None:
+							apprentice_groups = apprentice_match.groups()
+							if apprentice_groups is not None and len(apprentice_groups) > 0:
+								try:
+									runner['jockey_claiming'] = float(apprentice_groups[0])
+								except ValueError:
+									pass
 
-				runners.append(runner)
+					runners.append(runner)
 
 		return runners
