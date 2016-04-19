@@ -113,3 +113,4 @@ The above command will ensure all test dependencies are installed in your curren
 The tests for individual components of pypunters can be run by executing any of the following commands from the root directory of the pypunters repository::
 
 	nosetests pypunters.test.meets
+	nosetests pypunters.test.races
