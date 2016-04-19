@@ -44,10 +44,11 @@ def parse_attribute(parent, selector, attribute, parser, index=0):
 	"""
 
 	value = get_attribute(parent, selector, attribute, index)
-	try:
-		return parser(value)
-	except ValueError:
-		return None
+	if value is not None:
+		try:
+			return parser(value)
+		except ValueError:
+			return None
 
 
 def get_child(parent, selector, index=0):
@@ -79,10 +80,11 @@ def parse_child_text(parent, selector, parser, index=0):
 	"""
 
 	text = get_child_text(parent, selector, index)
-	try:
-		return parser(text)
-	except ValueError:
-		return None
+	if text is not None:
+		try:
+			return parser(text)
+		except ValueError:
+			return None
 
 
 def get_child_match(parent, selector, pattern, index=0):
@@ -125,7 +127,8 @@ def parse_child_match_group(parent, selector, pattern, parser, child_index=0, gr
 	"""
 
 	value = get_child_match_group(parent, selector, pattern, child_index, group_index)
-	try:
-		return parser(value)
-	except ValueError:
-		return None
+	if value is not None:
+		try:
+			return parser(value)
+		except ValueError:
+			return None

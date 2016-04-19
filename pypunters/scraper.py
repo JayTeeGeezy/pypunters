@@ -224,3 +224,91 @@ class Scraper:
 							pass
 
 			return profile
+
+	def scrape_performances(self, url):
+		"""Scrape a list of performances from the specified URL"""
+
+		def parse_date(text):
+			if text is not None:
+				try:
+					return datetime.strptime(text, '%d-%b-%y')
+				except ValueError:
+					return None
+
+		def parse_time(text):
+			if text is not None:
+				try:
+					time = None
+					time_parts = text.split(':')
+					if len(time_parts) > 0:
+						time = float(time_parts[-1])
+						if len(time_parts) > 1:
+							time += int(time_parts[0]) * 60
+						time = round(time, 2)
+					return time
+				except ValueError:
+					return None
+
+		performances = []
+
+		html = self.get_html(url)
+		if html is not None:
+			
+			for ul in html.cssselect('ul.timeline'):
+				if not 'TRIAL' in ul.text_content():
+					result_text = get_child_text(ul, 'span.formSummaryPosition')
+					if result_text is not None and result_text != 'Abn':
+
+						performance = {
+							'result':				parse_child_text(ul, 'span.formSummaryPosition', int),
+							'starters':				parse_child_text(ul, 'span.starters', int),
+							'track':				get_child_text(ul, 'span.simlight'),
+							'date':					parse_child_text(ul, 'span.date', parse_date),
+							'distance':				parse_attribute(ul, 'span.dist abbr.conversion[data-type=distance]', 'data-value', int),
+							'track_condition':		get_child_text(ul, 'span.badge'),
+							'runner_prize_money':	None,
+							'race_prize_money':		None,
+							'barrier':				parse_child_text(ul, 'span.barrier', int),
+							'winning_time':			parse_child_text(ul, 'span.time', parse_time),
+							'starting_price':		parse_child_match_group(ul, 'span.sp', '\$(\d+\.?\d*)', float),
+							'horse_url':			None,
+							'jockey_url':			None,
+							'weight':				None,
+							'carried':				None,
+							'lengths':				0.00
+						}
+
+						prize_monies = parse_attributes(ul, 'abbr.conversion[data-type=currency]', 'data-value', float)
+						if len(prize_monies) > 0:
+							performance['race_prize_money'] = prize_monies[-1]
+							if len(prize_monies) > 1:
+								performance['runner_prize_money'] = prize_monies[0]
+
+						placed_span = get_child(ul, 'span.timeline-right.placed')
+						if placed_span is not None:
+
+							for link in placed_span.cssselect('a'):
+								link_href = link.get('href')
+								for key in ('horse', 'jockey'):
+									if link_href.startswith('/{key}s/'.format(key=key)):
+										performance[key + '_url'] = self.fix_profile_url(link_href)
+										break
+
+							weights = parse_attributes(placed_span, 'abbr.conversion[data-type=weight]', 'data-value', float)
+							if len(weights) > 0:
+								performance['weight'] = performance['carried'] = weights[-1]
+								if len(weights) > 1:
+									performance['weight'] = weights[0]
+
+							lengths_match = re.search('\)\W+(\d+\.?\d*)L', placed_span.text_content())
+							if lengths_match is not None:
+								lengths_groups = lengths_match.groups()
+								if lengths_groups is not None and len(lengths_groups) > 0:
+									try:
+										performance['lengths'] = float(lengths_groups[0])
+									except ValueError:
+										pass
+
+						performances.append(performance)
+
+		return performances

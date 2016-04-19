@@ -207,6 +207,52 @@ The scrape_trainer method will return a dictionary containing the following keys
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 
 
+Scraping Performances
+~~~~~~~~~~~~~~~~~~~~~
+
+To scrape a list of completed (not abandoned), official (non-trial) performances from a specified profile URL, call the scrape_performances method on the scraper instance as follows:
+
+	>>> performances = scraper.scrape_performances(url)
+
+The scrape_performances method will return a list of dictionaries, with each dictionary providing the following keys to represent a single performance's details:
+
++--------------------+-------------+-------------------------------------------------------------------------+
+| Key                | Type        | Description                                                             |
++====================+=============+=========================================================================+
+| barrier            | int         | The barrier that the runner jumped from for the race                    |
++--------------------+-------------+-------------------------------------------------------------------------+
+| carried            | float       | The actual weight carried by the runner after allowances (in kilograms) |
++--------------------+-------------+-------------------------------------------------------------------------+
+| date               | datetime    | The date on which the performance occurred                              |
++--------------------+-------------+-------------------------------------------------------------------------+
+| distance           | int         | The actual distance of the race (in metres)                             |
++--------------------+-------------+-------------------------------------------------------------------------+
+| horse_url          | str         | The path to the horse's profile page at www.punters.com.au              |
++--------------------+-------------+-------------------------------------------------------------------------+
+| jockey_url         | str         | The path to the jockey's profile page at www.punters.com.au             |
++--------------------+-------------+-------------------------------------------------------------------------+
+| lengths            | float       | The lengths this runner finished behind the winner (0.0 for winners)    |
++--------------------+-------------+-------------------------------------------------------------------------+
+| race_prize_money   | float       | The total prize money offered for the race (in AU$)                     |
++--------------------+-------------+-------------------------------------------------------------------------+
+| runner_prize_money | float       | The prize money won by this runner in this race (in AU$)                |
++--------------------+-------------+-------------------------------------------------------------------------+
+| result             | int         | The final result achieved by the runner in this performance             |
++--------------------+-------------+-------------------------------------------------------------------------+
+| starters           | int         | The total number of runners competing in the race                       |
++--------------------+-------------+-------------------------------------------------------------------------+
+| starting_price     | float       | The starting price recorded for the runner in this race (in AU$)        |
++--------------------+-------------+-------------------------------------------------------------------------+
+| track              | str         | The name of the track at which the race occurred                        |
++--------------------+-------------+-------------------------------------------------------------------------+
+| track_condition    | str         | The official track condition rating at the time of the race             |
++--------------------+-------------+-------------------------------------------------------------------------+
+| weight             | float       | The official listed pre-allowance weight for the runner (in kilograms)  |
++--------------------+-------------+-------------------------------------------------------------------------+
+| winning_time       | float       | The winning time for the winner of the race (in seconds)                |
++--------------------+-------------+-------------------------------------------------------------------------+
+
+
 Testing
 -------
 
@@ -226,3 +272,4 @@ The tests for individual components of pypunters can be run by executing any of 
 	nosetests pypunters.test.horses
 	nosetests pypunters.test.jockeys
 	nosetests pypunters.test.trainers
+	nosetests pypunters.test.performances
