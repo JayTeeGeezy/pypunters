@@ -5,15 +5,16 @@ from .common import ScraperTest
 
 class RacesTest(ScraperTest):
 
-	def test_expected_races(self):
-		"""The scrape_races method should return a list containing all expected races"""
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
 
-		meet = {
+		cls.meet = {
 			'date':		datetime(2016, 2, 1),
 			'track':	'Kilmore',
 			'url':		'/racing-results/victoria/Kilmore/2016-02-01/'
 		}
-		expected_races = [
+		cls.expected_races = [
 			{
 				'number':			1,
 				'distance':			1100,
@@ -80,7 +81,18 @@ class RacesTest(ScraperTest):
 			}
 		]
 
-		scraped_races = self.scraper.scrape_races(meet)
+		cls.scraped_races = cls.scraper.scrape_races(cls.meet)
 
-		self.assertIsInstance(scraped_races, list)
-		self.check_expected_items(expected_races, scraped_races)
+	def setUp(self):
+		
+		self.assertIsInstance(self.scraped_races, list)
+
+	def test_expected_races(self):
+		"""The scrape_races method should return a list containing all expected races"""
+
+		self.check_expected_items(self.expected_races, self.scraped_races)
+
+	def test_unexpected_races(self):
+		"""The scrape_races method should return a list that does not contain any unexpected races"""
+
+		self.check_unexpected_items(self.expected_races, self.scraped_races)
