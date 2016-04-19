@@ -36,9 +36,13 @@ setup(
 		]
 	},
 	install_requires=[
+		'cssselect'
 	],
 	test_suite='nose.collector',
 	tests_require=[
+		'cache_requests',
+		'cssselect',
+		'lxml',
 		'nose'
 	],
 	dependency_links=[
