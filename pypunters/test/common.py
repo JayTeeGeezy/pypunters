@@ -25,3 +25,16 @@ class ScraperTest(unittest.TestCase):
 
 		for scraped_item in scraped_items:
 			self.assertIn(scraped_item, expected_items)
+
+	def check_expected_values(self, expected_values, scraped_values):
+		"""Ensure that all key/value pairs in expected_values are also in scraped_values"""
+
+		for key in expected_values:
+			self.assertIn(key, scraped_values)
+			self.assertEqual(expected_values[key], scraped_values[key])
+
+	def check_unexpected_values(self, expected_values, scraped_values):
+		"""Ensure that all keys in scraped_values are also in expected_values"""
+
+		for key in scraped_values:
+			self.assertIn(key, expected_values)

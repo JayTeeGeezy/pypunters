@@ -110,7 +110,7 @@ The scrape_races method will return a list of dictionaries, with each dictionary
 Scraping Runners
 ~~~~~~~~~~~~~~~~
 
-The scrape a list of active (non-scratched) runners competing in a specified race, call the scrape_runners method on the scraper instance as follows:
+To scrape a list of active (non-scratched) runners competing in a specified race, call the scrape_runners method on the scraper instance as follows:
 
 	>>> runners = scraper.scrape_runners(race)
 
@@ -141,6 +141,36 @@ The scrape_runners method will return a list of dictionaries, with each dictiona
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 
 
+Scraping Horses
+~~~~~~~~~~~~~~~
+
+To scrape a horse's profile from a specified URL, call the scrape_horses method on the scraper instance as follows:
+
+	>>> horse = scraper.scrape_horses(url)
+
+The scrape_horses method will return a dictionary containing the following keys representing the horse's details:
+
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| Key                  | Type        | Description                                                                         |
++======================+=============+=====================================================================================+
+| colour               | str         | The horse's colour                                                                  |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| country              | str         | The horse's country of origin                                                       |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| dam                  | str         | The name of this horse's dam (mother)                                               |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| foaled               | datetime    | The date on which the horse was foaled (born)                                       |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| name                 | str         | The horse's name                                                                    |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| sex                  | str         | The horse's sex                                                                     |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| sire                 | str         | The name of the horse that sired (fathered) this horse                              |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| url                  | str         | The path to the horse's profile page at www.punters.com.au                          |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+
+
 Testing
 -------
 
@@ -157,3 +187,4 @@ The tests for individual components of pypunters can be run by executing any of 
 	nosetests pypunters.test.meets
 	nosetests pypunters.test.races
 	nosetests pypunters.test.runners
+	nosetests pypunters.test.horses
