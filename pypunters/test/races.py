@@ -21,7 +21,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 13, 10),
-				'url':				'/form-guide/Kilmore_69146/Wandong-Bus-and-Coach-Maiden-Plate_411192/'
+				'url':				'/form-guide/Kilmore_69146/Wandong-Bus-and-Coach-Maiden-Plate_411192/',
+				'entry_conditions':	[
+					'Three-Years-Old and Upwards',
+					'Maiden',
+					'No sex restriction',
+					'Set Weights'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			2,
@@ -29,7 +38,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 13, 45),
-				'url':				'/form-guide/Kilmore_69146/Book-now-for-Valentines-Day-14-Feb-Maiden-Plate_411193/'
+				'url':				'/form-guide/Kilmore_69146/Book-now-for-Valentines-Day-14-Feb-Maiden-Plate_411193/',
+				'entry_conditions':	[
+					'Three-Years-Old',
+					'Maiden',
+					'Fillies',
+					'Set Weights'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			3,
@@ -37,7 +55,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 14, 20),
-				'url':				'/form-guide/Kilmore_69146/Montmorency-RSL-Maiden-Plate_411194/'
+				'url':				'/form-guide/Kilmore_69146/Montmorency-RSL-Maiden-Plate_411194/',
+				'entry_conditions':	[
+					'Three-Years-Old and Upwards',
+					'Maiden',
+					'No sex restriction',
+					'Set Weights'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			4,
@@ -45,7 +72,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 14, 55),
-				'url':				'/form-guide/Kilmore_69146/Sunday-Sessions-%40-Trackside-7-Feb-Maiden-Plate_411195/'
+				'url':				'/form-guide/Kilmore_69146/Sunday-Sessions-%40-Trackside-7-Feb-Maiden-Plate_411195/',
+				'entry_conditions':	[
+					'Three-Years-Old and Upwards',
+					'Maiden',
+					'No sex restriction',
+					'Set Weights'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			5,
@@ -53,7 +89,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 15, 32),
-				'url':				'/form-guide/Kilmore_69146/www.kilmoreracingclub.com.au-BM64-Handicap_411196/'
+				'url':				'/form-guide/Kilmore_69146/www.kilmoreracingclub.com.au-BM64-Handicap_411196/',
+				'entry_conditions':	[
+					'No age restriction',
+					'BenchMark 64',
+					'No sex restriction',
+					'Handicap'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			6,
@@ -61,7 +106,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		16000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 16, 12),
-				'url':				'/form-guide/Kilmore_69146/Wilson-Medic-One-Rising-Stars-0-58-Handicap_411197/'
+				'url':				'/form-guide/Kilmore_69146/Wilson-Medic-One-Rising-Stars-0-58-Handicap_411197/',
+				'entry_conditions':	[
+					'No age restriction',
+					'0 - 58',
+					'No sex restriction',
+					'Handicap'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			7,
@@ -69,7 +123,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		20000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 16, 52),
-				'url':				'/form-guide/Kilmore_69146/Sportsmans-Lunch-%40-Trackside-26-Feb-BM64-Handicap_411198/'
+				'url':				'/form-guide/Kilmore_69146/Sportsmans-Lunch-%40-Trackside-26-Feb-BM64-Handicap_411198/',
+				'entry_conditions':	[
+					'No age restriction',
+					'BenchMark 64',
+					'No sex restriction',
+					'Handicap'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			},
 			{
 				'number':			8,
@@ -77,7 +140,16 @@ class RacesTest(ScraperTest):
 				'prize_money':		16000.00,
 				'track_condition':	'Good 4',
 				'start_time':		datetime(2016, 2, 1, 17, 32),
-				'url':				'/form-guide/Kilmore_69146/Book-Now-Jet-Roofing-Kilmore-Pacing-Cup-0-58-Handicap_411199/'
+				'url':				'/form-guide/Kilmore_69146/Book-Now-Jet-Roofing-Kilmore-Pacing-Cup-0-58-Handicap_411199/',
+				'entry_conditions':	[
+					'No age restriction',
+					'0 - 58',
+					'No sex restriction',
+					'Handicap'
+				],
+				'track_circ':		1735,
+				'track_straight':	320,
+				'track_rail':		'True Entire Circuit'
 			}
 		]
 

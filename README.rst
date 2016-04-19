@@ -82,21 +82,29 @@ meet must be a dictionary containing a 'url' key with a corresponding value repr
 
 The scrape_races method will return a list of dictionaries, with each dictionary providing the following keys to represent a single race's details:
 
-+-----------------+----------+----------------------------------------------------------------+
-| Key             | Type     | Description                                                    |
-+=================+==========+================================================================+
-| distance        | int      | The race's distance in metres                                  |
-+-----------------+----------+----------------------------------------------------------------+
-| number          | int      | The race's number on the meet program                          |
-+-----------------+----------+----------------------------------------------------------------+
-| prize_money     | float    | The total prize money on offer for the race                    |
-+-----------------+----------+----------------------------------------------------------------+
-| start_time      | datetime | The advertised start time for the race                         |
-+-----------------+----------+----------------------------------------------------------------+
-| track_condition | str      | The official track condition rating as at the time of the race |
-+-----------------+----------+----------------------------------------------------------------+
-| url             | str      | The path to the race details page at www.punters.com.au        |
-+-----------------+----------+----------------------------------------------------------------+
++------------------+-------------+-----------------------------------------------------------------+
+| Key              | Type        | Description                                                     |
++==================+=============+=================================================================+
+| distance         | int         | The race's distance in metres                                   |
++------------------+-------------+-----------------------------------------------------------------+
+| entry_conditions | list of str | The entry conditions for the race (age, class, sex and weights) |
++------------------+-------------+-----------------------------------------------------------------+
+| number           | int         | The race's number on the meet program                           |
++------------------+-------------+-----------------------------------------------------------------+
+| prize_money      | float       | The total prize money on offer for the race                     |
++------------------+-------------+-----------------------------------------------------------------+
+| start_time       | datetime    | The advertised start time for the race                          |
++------------------+-------------+-----------------------------------------------------------------+
+| track_circ       | int         | The length of the circular part of the track in metres          |
++------------------+-------------+-----------------------------------------------------------------+
+| track_condition  | str         | The official track condition rating as at the time of the race  |
++------------------+-------------+-----------------------------------------------------------------+
+| track_rail       | str         | Description of the track's rail position                        |
++------------------+-------------+-----------------------------------------------------------------+
+| track_straight   | int         | The length of the straight part of the track in metres          |
++------------------+-------------+-----------------------------------------------------------------+
+| url              | str         | The path to the race details page at www.punters.com.au         |
++------------------+-------------+-----------------------------------------------------------------+
 
 
 Testing

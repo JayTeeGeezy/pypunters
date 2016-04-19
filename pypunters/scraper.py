@@ -89,13 +89,30 @@ class Scraper:
 				header = get_child(table, 'thead tr th')
 				if header is not None:
 
-					races.append({
+					race = {
 						'number':			parse_child_match_group(header, 'b.capitalize', 'Race (\d+)', int),
 						'distance':			parse_attribute(header, 'span.distance abbr.conversion[data-type=distance]', 'data-value', int),
 						'prize_money':		get_prize_money(header),
 						'track_condition':	get_child_text(header, 'span.capitalize', index=1),
 						'start_time':		get_start_time(header),
 						'url':				get_attribute(header, 'a', 'href')
-						})
+						}
+
+					html2 = self.get_html(race['url'])
+					if html2 is not None:
+						
+						race['entry_conditions'] = [span.text_content().replace('.', '').strip() for span in html2.cssselect('div.event-details span.entry-conditions-text span')]
+
+						detail_spans = html2.cssselect('div.event-details-bottom div span')
+						for index in range(0, len(detail_spans) - 1, 2):
+							key = detail_spans[index].text_content().strip().lower()
+
+							if key in ('circ', 'straight'):
+								race['track_' + key] = parse_attribute(detail_spans[index + 1], 'abbr.conversion[data-type=distance]', 'data-value', int)
+
+							elif key == 'rail':
+								race['track_rail'] = detail_spans[index + 1].text_content().strip()
+
+					races.append(race)
 
 		return races
