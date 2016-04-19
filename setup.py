@@ -31,6 +31,10 @@ setup(
 	],
 	install_requires=[
 	],
+	test_suite='nose.collector',
+	tests_require=[
+		'nose'
+	],
 	dependency_links=[
 	],
 	include_package_data=True,
