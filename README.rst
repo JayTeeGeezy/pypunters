@@ -144,7 +144,7 @@ The scrape_runners method will return a list of dictionaries, with each dictiona
 Scraping Horses
 ~~~~~~~~~~~~~~~
 
-To scrape a horse's profile from a specified URL, call the scrape_horses method on the scraper instance as follows:
+To scrape a horse's profile from a specified URL, call the scrape_horse method on the scraper instance as follows:
 
 	>>> horse = scraper.scrape_horse(url)
 
@@ -172,9 +172,9 @@ The scrape_horse method will return a dictionary containing the following keys r
 
 
 Scraping Jockeys
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
-To scrape a jockey's profile from a specified URL, call the scrape_jockeys method on the scraper instance as follows:
+To scrape a jockey's profile from a specified URL, call the scrape_jockey method on the scraper instance as follows:
 
 	>>> jockey = scraper.scrape_jockey(url)
 
@@ -186,6 +186,24 @@ The scrape_jockey method will return a dictionary containing the following keys 
 | name                 | str         | The jockey's name                                                                   |
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 | url                  | str         | The path to the jockey's profile page at www.punters.com.au                         |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+
+
+Scraping Trainers
+~~~~~~~~~~~~~~~~~
+
+To scrape a trainer's profile from a specified URL, call the scrape_trainer method on the scraper instance as follows:
+
+	>>> trainer = scraper.scrape_trainer(url)
+
+The scrape_trainer method will return a dictionary containing the following keys representing the trainer's details:
+
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| Key                  | Type        | Description                                                                         |
++======================+=============+=====================================================================================+
+| name                 | str         | The trainer's name                                                                  |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| url                  | str         | The path to the trainer's profile page at www.punters.com.au                        |
 +----------------------+-------------+-------------------------------------------------------------------------------------+
 
 
@@ -207,3 +225,4 @@ The tests for individual components of pypunters can be run by executing any of 
 	nosetests pypunters.test.runners
 	nosetests pypunters.test.horses
 	nosetests pypunters.test.jockeys
+	nosetests pypunters.test.trainers

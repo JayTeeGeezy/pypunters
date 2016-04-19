@@ -22,7 +22,7 @@ class Scraper:
 		self.http_client = http_client
 		self.html_parser = html_parser
 
-		self.scrape_horse = self.scrape_jockey = self.scrape_profile
+		self.scrape_horse = self.scrape_jockey = self.scrape_trainer = self.scrape_profile
 
 	def get_html(self, url, url_root='https://www.punters.com.au/', url_separator='/'):
 		"""Get the root HTML element from the specified URL"""
