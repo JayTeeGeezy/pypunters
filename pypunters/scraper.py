@@ -89,13 +89,81 @@ class Scraper:
 				header = get_child(table, 'thead tr th')
 				if header is not None:
 
-					races.append({
+					race = {
 						'number':			parse_child_match_group(header, 'b.capitalize', 'Race (\d+)', int),
 						'distance':			parse_attribute(header, 'span.distance abbr.conversion[data-type=distance]', 'data-value', int),
 						'prize_money':		get_prize_money(header),
 						'track_condition':	get_child_text(header, 'span.capitalize', index=1),
 						'start_time':		get_start_time(header),
-						'url':				get_attribute(header, 'a', 'href')
-						})
+						'url':				get_attribute(header, 'a', 'href'),
+						'entry_conditions':	[],
+						'track_circ':		None,
+						'track_straight':	None,
+						'track_rail':		None
+						}
+
+					html2 = self.get_html(race['url'])
+					if html2 is not None:
+						
+						race['entry_conditions'] = [span.text_content().replace('.', '').strip() for span in html2.cssselect('div.event-details span.entry-conditions-text span')]
+
+						detail_spans = html2.cssselect('div.event-details-bottom div span')
+						for index in range(0, len(detail_spans) - 1, 2):
+							key = detail_spans[index].text_content().strip().lower()
+
+							if key in ('circ', 'straight'):
+								race['track_' + key] = parse_attribute(detail_spans[index + 1], 'abbr.conversion[data-type=distance]', 'data-value', int)
+
+							elif key == 'rail':
+								race['track_rail'] = detail_spans[index + 1].text_content().strip()
+
+					races.append(race)
 
 		return races
+
+	def scrape_runners(self, race):
+		"""Scrape a list of runners competing in the specified race"""
+		
+		runners = []
+
+		html = self.get_html(race['url'])
+		if html is not None:
+			
+			for row in html.cssselect('table.form-overview tbody tr'):
+				row_class = row.get('class')
+				if row_class is None or 'scratched' not in row_class:
+
+					runner = {
+						'number':				parse_attribute(row, None, 'data-runner-number', int),
+						'horse_url':			None,
+						'horse_has_blinkers':	get_child(row, 'div.has-blinkers') is not None,
+						'jockey_url':			None,
+						'jockey_is_apprentice':	False,
+						'jockey_claiming':		0.0,
+						'trainer_url':			None,
+						'weight':				parse_attribute(row, None, 'data-weight', float),
+						'barrier':				parse_attribute(row, None, 'data-barrier', float)
+						}
+
+					for link in row.cssselect('a'):
+						link_href = link.get('href')
+						for key in ('horse', 'jockey', 'trainer'):
+							if link_href.startswith('/{key}s/'.format(key=key)):
+								runner[key + '_url'] = link_href
+								break
+
+					apprentice_text = get_child_text(row, 'span.timeSince')
+					if apprentice_text is not None:
+						runner['jockey_is_apprentice'] = True
+						apprentice_match = re.search('\(a(\d+\.?\d*)\)', apprentice_text)
+						if apprentice_match is not None:
+							apprentice_groups = apprentice_match.groups()
+							if apprentice_groups is not None and len(apprentice_groups) > 0:
+								try:
+									runner['jockey_claiming'] = float(apprentice_groups[0])
+								except ValueError:
+									pass
+
+					runners.append(runner)
+
+		return runners
