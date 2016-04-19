@@ -1,3 +1,6 @@
+import re
+
+
 class Scraper:
 	"""Web scraper for www.punters.com.au"""
 
@@ -27,10 +30,13 @@ class Scraper:
 		if html is not None:
 			
 			for link in html.cssselect('a.label-link'):
-				meets.append({
-					'date':		date,
-					'track':	link.text_content().strip(),
-					'url':		link.get('href')
-					})
+				link_href = link.get('href')
+				if re.search('/(australian-capital-territory|new-south-wales|northern-territory|queensland|south-australia|tasmania|victoria|western-australia)/.*/{date:%Y-%m-%d}'.format(date=date), link_href):
+					
+					meets.append({
+						'date':		date,
+						'track':	link.text_content().strip(),
+						'url':		link_href
+						})
 
 		return meets

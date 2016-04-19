@@ -8,28 +8,40 @@ import pypunters
 
 class MeetsTest(unittest.TestCase):
 
-	def test_expected_meets(self):
-		"""The scrape_meets method should return a list containing all expected meets"""
-
-		date = datetime(2016, 2, 1)
-		expected_meets = [
+	@classmethod
+	def setUpClass(cls):
+		
+		cls.date = datetime(2016, 2, 1)
+		cls.expected_meets = [
 			{
-				'date':		date,
+				'date':		cls.date,
 				'track':	'Kilmore',
 				'url':		'/racing-results/victoria/Kilmore/2016-02-01/'
 			},
 			{
-				'date':		date,
+				'date':		cls.date,
 				'track':	'Nowra',
 				'url':		'/racing-results/new-south-wales/Nowra/2016-02-01/'
 			}
 		]
-		http_client = cache_requests.Session()
-		html_parser = html.fromstring
-		scraper = pypunters.Scraper(http_client, html_parser)
+		cls.http_client = cache_requests.Session()
+		cls.html_parser = html.fromstring
+		cls.scraper = pypunters.Scraper(cls.http_client, cls.html_parser)
 
-		scraped_meets = scraper.scrape_meets(date)
+		cls.scraped_meets = cls.scraper.scrape_meets(cls.date)
 
-		self.assertIsInstance(scraped_meets, list)
-		for expected_meet in expected_meets:
-			self.assertIn(expected_meet, scraped_meets)
+	def setUp(self):
+		
+		self.assertIsInstance(self.scraped_meets, list)
+
+	def test_expected_meets(self):
+		"""The scrape_meets method should return a list containing all expected meets"""
+
+		for expected_meet in self.expected_meets:
+			self.assertIn(expected_meet, self.scraped_meets)
+
+	def test_unexpected_meets(self):
+		"""The scrape_meets method should return a list that does not contain any unexpected meets"""
+		
+		for scraped_meet in self.scraped_meets:
+			self.assertIn(scraped_meet, self.expected_meets)

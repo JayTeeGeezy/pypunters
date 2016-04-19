@@ -52,7 +52,7 @@ With these dependencies in place, pypunters.Scraper can be instantiated as follo
 Scraping Meets
 ~~~~~~~~~~~~~~
 
-To scrape a list of meets occurring on a given date, call the scrape_meets method on the scraper instance as follows:
+To scrape a list of meets occurring in Australia on a given date, call the scrape_meets method on the scraper instance as follows:
 
 	>>> from datetime import datetime
 	>>> date = datetime(2016, 2, 1)
