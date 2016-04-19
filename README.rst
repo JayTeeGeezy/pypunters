@@ -107,6 +107,40 @@ The scrape_races method will return a list of dictionaries, with each dictionary
 +------------------+-------------+-----------------------------------------------------------------+
 
 
+Scraping Runners
+~~~~~~~~~~~~~~~~
+
+The scrape a list of runners competing in a specified race, call the scrape_runners method on the scraper instance as follows:
+
+	>>> runners = scraper.scrape_runners(race)
+
+race must be a dictionary containing a 'url' key with a corresponding value representing the URL or path to the race details page at www.punters.com.au.
+
+The scrape_runners method will return a list of dictionaries, with each dictionary providing the following keys to represent a single runner's details:
+
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| Key                  | Type        | Description                                                                         |
++======================+=============+=====================================================================================+
+| barrier              | int         | The barrier number that the runner is jumping from                                  |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| horse_has_blinkers   | bool        | True if the horse is wearing blinkers; False otherwise                              |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| horse_url            | str         | The path to the horse's profile page at www.punters.com.au                          |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| jockey_claiming      | float       | The weight allowance claimed by an apprentice jockey (0.0 for professional jockeys) |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| jockey_is_apprentice | bool        | True if the jockey is an apprentice; False otherwise                                |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| jockey_url           | str         | The path to the jockey's profile page at www.punters.com.au                         |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| number               | int         | The runner's number on the race card                                                |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| trainer_url          | str         | The path to the trainer's profile page at www.punters.com.au                        |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+| weight               | float       | The runner's official listed pre-allowance weight                                   |
++----------------------+-------------+-------------------------------------------------------------------------------------+
+
+
 Testing
 -------
 
@@ -122,3 +156,4 @@ The tests for individual components of pypunters can be run by executing any of 
 
 	nosetests pypunters.test.meets
 	nosetests pypunters.test.races
+	nosetests pypunters.test.runners

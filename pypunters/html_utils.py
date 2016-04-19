@@ -11,11 +11,16 @@ def get_attribute(parent, selector, attribute, index=0):
 	"""Get the attribute value for the child element of parent matching the given CSS selector
 
 	If index is specified, return the attribute value for the matching child element with the specified zero-based index; otherwise, return the attribute value for the first matching child element.
+
+	If selector is None, return the attribute value for parent instead.
 	"""
 
-	values = get_attributes(parent, selector, attribute)
-	if (index < 0 and len(values) >= abs(index)) or (index >= 0 and len(values) > index):
-		return values[index]
+	if selector is None:
+		return parent.get(attribute)
+	else:
+		values = get_attributes(parent, selector, attribute)
+		if (index < 0 and len(values) >= abs(index)) or (index >= 0 and len(values) > index):
+			return values[index]
 
 
 def parse_attributes(parent, selector, attribute, parser):
@@ -34,6 +39,8 @@ def parse_attribute(parent, selector, attribute, parser, index=0):
 	"""Parse the attribute value for the child element of parent matching the given CSS selector
 
 	If index is specified, parse the attribute value for the matching child element with the specified zero-based index; otherwise, parse the attribute value for the first matching child element.
+
+	If selector is None, parse the attribute value for parent instead.
 	"""
 
 	value = get_attribute(parent, selector, attribute, index)
