@@ -210,7 +210,7 @@ The scrape_trainer method will return a dictionary containing the following keys
 Scraping Performances
 ~~~~~~~~~~~~~~~~~~~~~
 
-To scrape a list of performances from a specified profile URL, call the scrape_performances method on the scraper instance as follows:
+To scrape a list of completed (not abandoned), official (non-trial) performances from a specified profile URL, call the scrape_performances method on the scraper instance as follows:
 
 	>>> performances = scraper.scrape_performances(url)
 

@@ -203,3 +203,8 @@ class PerformancesTest(ScraperTest):
 		"""The scrape_performances method should return a list containing all expected performances"""
 
 		self.check_expected_items(self.expected_performances, self.scraped_performances)
+
+	def test_unexpected_performances(self):
+		"""The scrape_performances method should return a list that does not contain any unexpected performances"""
+
+		self.check_unexpected_items(self.expected_performances, self.scraped_performances)
