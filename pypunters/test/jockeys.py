@@ -25,3 +25,8 @@ class JockeysTest(ScraperTest):
 		"""The scrape_jockey method should return a dictionary containing all expected values"""
 
 		self.check_expected_values(self.expected_values, self.scraped_values)
+
+	def test_unexpected_values(self):
+		"""The scrape_jockey method should return a dictionary that does not contain any unexpected values"""
+
+		self.check_unexpected_values(self.expected_values, self.scraped_values)

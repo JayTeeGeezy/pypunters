@@ -191,14 +191,8 @@ class Scraper:
 		if html is not None:
 			
 			profile = {
-				'url':		url,
-				'name':		get_name(html),
-				'colour':	None,
-				'sex':		None,
-				'sire':		None,
-				'dam':		None,
-				'country':	None,
-				'foaled':	None
+				'url':	url,
+				'name':	get_name(html)
 			}
 
 			for row in html.cssselect('div.moduleItem table tr'):
