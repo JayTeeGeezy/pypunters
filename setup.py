@@ -8,7 +8,7 @@ def read_text(filename):
 
 setup(
 	name='pypunters',
-	version='0.0.0',
+	version='1.0.0',
 	description='Python web scraper for www.punters.com.au',
 	long_description=read_text('README.rst'),
 	classifiers=[
