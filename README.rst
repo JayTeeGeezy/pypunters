@@ -273,3 +273,10 @@ The tests for individual components of pypunters can be run by executing any of 
 	nosetests pypunters.test.jockeys
 	nosetests pypunters.test.trainers
 	nosetests pypunters.test.performances
+
+
+Version History
+---------------
+
+1.0.0 (21 April 2016)
+	Initial release

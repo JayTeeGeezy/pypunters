@@ -12,7 +12,7 @@ setup(
 	description='Python web scraper for www.punters.com.au',
 	long_description=read_text('README.rst'),
 	classifiers=[
-		'Development Status :: 1 - Planning',
+		'Development Status :: 5 - Production/Stable',
 		'Environment :: No Input/Output (Daemon)',
 		'Intended Audience :: Developers',
 		'License :: OSI Approved :: MIT License',
@@ -21,7 +21,7 @@ setup(
 		'Programming Language :: Python :: 3.4',
 		'Topic :: Software Development :: Libraries :: Python Modules'
 	],
-	keywords='web scraper punters',
+	keywords='web scraper punters meets races runners horses jockeys trainers performances',
 	url='https://github.com/JayTeeGeezy/pypunters',
 	author='Jason Green',
 	author_email='JayTeeGeezy@outlook.com',
