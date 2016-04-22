@@ -12,6 +12,24 @@ class PerformancesTest(ScraperTest):
 		cls.url = '/horses/Tycoon-Tony_395471/'
 		cls.expected_performances = [
 			{
+				'result':				10,
+				'starters':				13,
+				'track':				'Wangaratta',
+				'date':					datetime(2016, 4, 21),
+				'distance':				1170,
+				'track_condition':		'Good 4',
+				'runner_prize_money':	500.00,
+				'race_prize_money':		20000.00,
+				'barrier':				16,
+				'winning_time':			68.66,
+				'starting_price':		6.50,
+				'horse_url':			'/horses/Tycoon-Tony_395471/',
+				'jockey_url':			'/jockeys/Dylan-Dunn_7917/',
+				'weight':				60.5,
+				'carried':				60.5,
+				'lengths':				4.15
+			},
+			{
 				'result':				3,
 				'starters':				12,
 				'track':				'Echuca',

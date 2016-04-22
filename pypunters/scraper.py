@@ -28,14 +28,13 @@ class Scraper:
 		"""Get the root HTML element from the specified URL"""
 
 		if not url.startswith(url_root):
-			if not url.startswith(url_separator) and not url_root.endswith(url_separator):
+			if not (url.startswith(url_separator) or url_root.endswith(url_separator)):
 				url = url_separator + url
 			url = url_root + url
 
 		response = self.http_client.get(url)
-		response.raise_for_status()
-
-		return self.html_parser(response.text)
+		if response.status_code == 200:
+			return self.html_parser(response.text)
 
 	def fix_profile_url(self, url):
 		"""Remove apprentice indicators from profile URLs"""
