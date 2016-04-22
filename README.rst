@@ -278,5 +278,8 @@ The tests for individual components of pypunters can be run by executing any of 
 Version History
 ---------------
 
+1.0.1 (22 April 2016)
+	Fix unhandled HTTPErrors
+
 1.0.0 (21 April 2016)
 	Initial release
